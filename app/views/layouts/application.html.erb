@@ -7,8 +7,36 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+<div class='container canvas'>
+  <div id="fb-root"></div>
 
-<%= yield %>
+    <script src="//connect.facebook.net/en_US/all.js"></script>
+    <script>
+      FB.init({
+        appId      : '215315865221632',
+        channelUrl : '//my.local:3000/channel.html', // Channel File
+        status     : true, // check login status
+        cookie     : true, // enable cookies to allow the server to access the session
+        xfbml      : true  // parse XFBML
+      });
+    </script>
 
+
+  <div class='page-header'>
+    <h1>Training a habit in 21 days</h1>
+    <ul class="tabs">
+    <li class="active"><a href="/home/current">Home</a></li>
+    <li><a href="/home/history">My History</a></li>
+    <li id="hothabits"><a href="/home/hot_habits">Hot Habits</a></li>
+    <li><a href="#">Facts</a></li>
+    <li><a href="#">Psychology</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+  </div>
+
+  <div id="status">
+    <%= yield %>
+  </div>
+</div>
 </body>
 </html>
