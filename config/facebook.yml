@@ -1,0 +1,33 @@
+
+development:
+    key: 	215315865221632
+    secret: a64fde8f3218ff3ae2a743a2239d9d5e
+    canvas_path: http://my.local:3000/home/mypage/
+    callback_path: /path/to/your/callback/
+    tunnel:
+      username: yourLoginName
+      host: www.yourexternaldomain.com
+      port: 1234
+      local_port: 5678
+
+test:
+    key: 	215315865221632
+    secret: a64fde8f3218ff3ae2a743a2239d9d5e
+    canvas_path: http://my.local:3000/home/mypage/
+    callback_path: http://my.local:3000/home/mypage/
+    tunnel:
+      username: yourLoginName
+      host: www.yourexternaldomain.com
+      port: 1234
+      local_port: 5678
+
+production:
+    key: 	215315865221632
+    secret: a64fde8f3218ff3ae2a743a2239d9d5e
+    canvas_path: http://my.local:3000/home/mypage/
+    callback_path: http://my.local:3000/home/mypage/
+    tunnel:
+      username: yourLoginName
+      host: www.yourexternaldomain.com
+      port: 1234
+      local_port: 5678

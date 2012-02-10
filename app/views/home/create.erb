@@ -1,0 +1,15 @@
+ <section id="form">
+    <%= form_for @habit, :url => {:action => "new_habit"} do |f| %>
+       <%= f.error_messages %>
+     <fieldset>
+        <legend>Start training a new habit from today</legend>
+      <div class="clearfix">
+        <%= f.label(:name, text="I will ", :class=>"nofloat") %>
+        <%= f.text_field(:name) %>
+        </div>
+        <%= f.submit("Start", :class=>"btn success") %>
+       </fieldset>
+    <% end %>
+   <p>or</p>
+         <button id="choosehabit" class="btn primary">Choose from popular habits</button>
+</section>

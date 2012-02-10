@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  user_id: 1
+  habit_id: 1
+  progress: 0
+
+two:
+  user_id: 2
+  habit_id: 1
+  progress: 5

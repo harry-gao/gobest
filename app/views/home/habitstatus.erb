@@ -1,0 +1,103 @@
+<script type="text/javascript">
+    var createTimeLocal = new Date(<%= @current_habit.create_time_second * 1000 %>);
+    var status = getHabitStatus(createTimeLocal, <%= @current_habit.progress %>);
+    setContentByStatus(status);
+
+    function  setContentByStatus(status)
+    {
+        $.get("/home/habit_status", {code: status.toString()}, function(data){
+            $('#status').html(data);
+            //new content contains buttons, and event cannot be bound before the content is actually added
+            //have to call it here
+            bindEventsToContent();
+        });
+    }
+
+    function getHabitStatus(createTimeLocal, progress)
+    {
+        var days = getDaysSinceCreated(createTimeLocal);
+        if(days > 21)
+            return 1; //expired
+        if(progress < (Math.pow(2, days) - 1))
+            return 3; //Some days are missed
+        if((progress & (0x01 << days)) != 0)
+            return 4; //today is finished
+        if(days == 0)
+            return 2; //today not finished, but it is a new habit
+        else
+            return 5; //today is not finished
+
+        //is there any cases??
+
+    }
+
+    function getDaysSinceCreated(createTimeLocal)  //0 for first day, 1 for 2nd day, and so on
+    {
+        var now = new Date().getTime();
+        createTimeLocal.setHours(0);
+        createTimeLocal.setMinutes(0);
+        createTimeLocal.setSeconds(0);
+        return Math.floor((now - createTimeLocal.getTime())/(1000*60*60*24));
+    }
+
+    function bindEventsToContent()
+    {
+        //bind events to the new content
+        $('#status').find('#restart').click(function(){
+            $.get("/home/restart", {} , function(data){
+                setContentByStatus(2);
+            });
+        });
+
+        $('#status').find('#markmissed').click(function(){
+            var now = new Date().getTime();
+            var created_at = new Date(<%= @current_habit.create_time_second * 1000 %>);
+            created_at.setHours(0);
+            created_at.setMinutes(0);
+            created_at.setSeconds(0);
+            var daysSinceCreated = Math.floor((now - created_at.getTime())/(1000*60*60*24));
+
+            fb_feed("Finished previous days practice", "/home/mark_missed", {days: daysSinceCreated}, 5);
+        });
+
+         $('#status').find('#finishtoday').click(function(){
+             fb_feed("Finished today days practice", "/home/mark_today", {}, 4);
+        });
+
+
+    }
+
+</script>
+
+<script type="text/javascript">
+  function fb_feed(msg, action_url, action_params, next_status)
+  {
+      FB.ui(
+      {
+        method: 'feed',
+        message: 'getting educated about Facebook Connect',
+        name: 'Go Habit',
+        caption: 'Is in the 1st day of 21 days in cultivate a habit',
+            description: (
+            ' Habit description '
+            ),
+       link: 'http://apps.facebook.com/215315865221632',
+       //picture: '<%= "#{request.protocol}#{request.host_with_port}#{asset_path('logo_1.jpg')}" %>',
+       picture: 'http://fbrell.com/f8.jpg',
+       actions: [
+            { name: 'Go Habit', link: 'http://apps.facebook.com/215315865221632' }
+       ],
+      user_message_prompt: 'Say something here'
+      },
+      function(response) {
+        if (response && response.post_id) {
+            $.get(action_url, action_params , function(data){
+                setContentByStatus(next_status);
+            });
+        } else {
+          alert('You must post your status so that your friend can monitor you.');
+        }
+      });
+  }
+</script>
+
