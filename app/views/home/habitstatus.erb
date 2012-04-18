@@ -68,20 +68,13 @@
   function fb_feed(msg, action_url, action_params, next_status)
   {
       var obj = {
-          /*method: 'feed',
+          method: 'feed',
           link: 'http://apps.facebook.com/215315865221632',
-          //picture: 'http://fbrell.com/f8.jpg',
+          picture: 'http://fbrell.com/f8.jpg',
           name: 'Training your habit in 21 days',
           caption: 'Is in the 1st day of 21 days in cultivate a habit',
           description: 'Habit description.',
-          user_message_prompt: 'Say something here' */
-
-          method: 'feed',
-          link: 'https://developers.facebook.com/docs/reference/dialogs/',
-          picture: 'http://fbrell.com/f8.jpg',
-          name: 'Facebook Dialogs',
-          caption: 'Reference Documentation',
-          description: 'Using Dialogs to interact with users.'
+          user_message_prompt: 'Say something here'
       };
 
       function callback(response) {
