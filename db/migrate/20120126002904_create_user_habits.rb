@@ -8,3 +8,4 @@ class CreateUserHabits < ActiveRecord::Migration
     end
   end
 end
+

@@ -14,9 +14,14 @@ development:
   reconnect: false
   database: GoBest_development
   pool: 5
+#DB for AWS
   username: root
   password:
   socket: /var/run/mysqld/mysqld.sock
+#DB for local env
+   #password: root1234.
+   #host:  127.0.0.1
+   #socket /var/lib/mysql/mysqld.sock
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".

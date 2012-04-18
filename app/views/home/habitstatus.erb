@@ -61,43 +61,40 @@
         });
 
          $('#status').find('#finishtoday').click(function(){
-             fb_feed("Finished today days practice", "/home/mark_today", {}, 4);
+             fb_feed("Finished today's practice", "/home/mark_today", {}, 4);
         });
-
-
     }
 
-</script>
-
-<script type="text/javascript">
   function fb_feed(msg, action_url, action_params, next_status)
   {
-      FB.ui(
-      {
-        method: 'feed',
-        message: 'getting educated about Facebook Connect',
-        name: 'Go Habit',
-        caption: 'Is in the 1st day of 21 days in cultivate a habit',
-            description: (
-            ' Habit description '
-            ),
-       link: 'http://apps.facebook.com/215315865221632',
-       //picture: '<%= "#{request.protocol}#{request.host_with_port}#{asset_path('logo_1.jpg')}" %>',
-       picture: 'http://fbrell.com/f8.jpg',
-       actions: [
-            { name: 'Go Habit', link: 'http://apps.facebook.com/215315865221632' }
-       ],
-      user_message_prompt: 'Say something here'
-      },
-      function(response) {
-        if (response && response.post_id) {
+      var obj = {
+          /*method: 'feed',
+          link: 'http://apps.facebook.com/215315865221632',
+          //picture: 'http://fbrell.com/f8.jpg',
+          name: 'Training your habit in 21 days',
+          caption: 'Is in the 1st day of 21 days in cultivate a habit',
+          description: 'Habit description.',
+          user_message_prompt: 'Say something here' */
+
+          method: 'feed',
+          link: 'https://developers.facebook.com/docs/reference/dialogs/',
+          picture: 'http://fbrell.com/f8.jpg',
+          name: 'Facebook Dialogs',
+          caption: 'Reference Documentation',
+          description: 'Using Dialogs to interact with users.'
+      };
+
+      function callback(response) {
+          if (response && response.post_id) {
             $.get(action_url, action_params , function(data){
                 setContentByStatus(next_status);
             });
         } else {
           alert('You must post your status so that your friend can monitor you.');
         }
-      });
+      }
+
+      FB.ui(obj, callback);
   }
 </script>
 
